@@ -1,0 +1,22 @@
+{
+  "name": "project7-twitterinterface",
+  "version": "1.0.0",
+  "description": "*Project 7-:Team :evergreen_tree: :house:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Melvin-Viana/Project7-TwitterInterface.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Melvin-Viana/Project7-TwitterInterface/issues"
+  },
+  "homepage": "https://github.com/Melvin-Viana/Project7-TwitterInterface#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
