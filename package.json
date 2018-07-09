@@ -2,7 +2,7 @@
   "name": "project7-twitterinterface",
   "version": "1.0.0",
   "description": "*Project 7-:Team :evergreen_tree: :house:",
-  "main": "index.js",
+  "main": "js/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Melvin-Viana/Project7-TwitterInterface#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "nodemon": "^1.17.5",
+    "pug": "^2.0.3"
   }
 }
