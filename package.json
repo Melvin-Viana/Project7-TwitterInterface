@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/Melvin-Viana/Project7-TwitterInterface#readme",
   "dependencies": {
+    "dateformat": "^3.0.3",
     "express": "^4.16.3",
     "nodemon": "^1.17.5",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "timeago.js": "^3.0.2",
+    "twit": "^2.2.11"
   }
 }
