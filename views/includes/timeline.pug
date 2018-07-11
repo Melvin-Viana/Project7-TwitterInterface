@@ -1,11 +1,12 @@
 .grid-33
   .app--section
     ul.app--tweet--list
-      li
-        strong.app--tweet--timestamp #{time}
-        a.app--tweet--author
-          .app--avatar(style=`background-image: url(${image})`)
-          h4 #{user}
-          |  @#{screenName}
-        p placeholder
-        include tweetactions.pug
+      each t in text 
+        li
+          strong.app--tweet--timestamp #{time}
+          a.app--tweet--author
+            .app--avatar(style=`background-image: url(${image})`)
+            h4 #{user}
+            |  @#{screenName}
+          p=t
+      include tweetactions.pug
