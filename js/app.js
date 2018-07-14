@@ -210,6 +210,7 @@ app.get("/", (req, response) => {
       //=================================
     },
     function() {
+      //Occurs when one of the T.get request fails.
       console.log("Promise error occured");
     }
   );
