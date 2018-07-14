@@ -90,12 +90,14 @@ app.get("/", (req, response) => {
   //==============================================
   //Displays how many users are followed.
   T.get("friends/ids", (err, data, res) => {
-     following = data.ids.length; //Head.pug
+    following = data.ids.length; //Head.pug
   });
 
   //==================================================
   //Gets the data of the authorized user.
-  const accountData = T.get("users/show",{screen_name:'Mviana23008541'}).then(value => {
+  const accountData = T.get("users/show", {
+    screen_name: "Mviana23008541"
+  }).then(value => {
     //Return screen name of the user and the profile banner image url
     return [
       value.data.screen_name,
@@ -111,29 +113,36 @@ app.get("/", (req, response) => {
         time the message was sent
      */
 
-  const directMessages = T.get("direct_messages/events/list").then(value => {
-    let dmArr = [];
-    const arr = value.data.events;
-    for (let i = 0; i < 5; i++) {
-      dmArr.push({
-        //Message Text
-        text: arr[i].message_create.message_data.text,
-        //Date Message was sent
-        time: tweetDate(
-          //Converts the date
-          toDate(
-            //Convert time stamp
-            arr[i].created_timestamp
+  const directMessages = T.get("direct_messages/events/list").then(
+    value => {
+      let dmArr = [];
+      const arr = value.data.events;
+      for (let i = 0; i < 5; i++) {
+        dmArr.push({
+          //Message Text
+          text: arr[i].message_create.message_data.text,
+          //Date Message was sent
+          time: tweetDate(
+            //Converts the date
+            toDate(
+              //Convert time stamp
+              arr[i].created_timestamp
+            ),
+            "h:mm TT"
           ),
-          "h:mm TT"
-        ),
-        date: tweetDate(arr[i.created_timestamp], "mmm dd, yyyy", false),
-        // userPicture: T.get('users/show',{id:})
-        id: arr[i].message_create.sender_id
-      });
+          date: tweetDate(arr[i.created_timestamp], "mmm dd, yyyy", false),
+          // userPicture: T.get('users/show',{id:})
+          id: arr[i].message_create.sender_id
+        });
+      }
+      return dmArr;
+    },
+    () => {
+      //If an error occurs with extracting messages the returned array will be empty.
+      console.log("Direct Messages error;");
+      return [];
     }
-    return dmArr;
-  });
+  );
 
   //===========================================================
   //Get 5 Most recent friends
@@ -161,27 +170,30 @@ app.get("/", (req, response) => {
   });
   const imgArr = directMessages.then(val => {
     let imgArr = [];
-        for(let i=0; i<val.length;i++){
-    imgArr.push(T.get("users/show", { id: val[i].id }).then(value => {
-      return value.data.profile_image_url;
-    }));
-      }   var promises = Promise.all(imgArr);
-      return promises;
+    for (let i = 0; i < val.length; i++) {
+      imgArr.push(
+        T.get("users/show", { id: val[i].id }).then(value => {
+          return value.data.profile_image_url;
+        })
+      );
+    }
+    var promises = Promise.all(imgArr);
+    return promises;
   });
   //======================================================
 
-  Promise.all([accountData, statuses, directMessages, friends,imgArr]).then(
+  Promise.all([accountData, statuses, directMessages, friends, imgArr]).then(
     function(values) {
       const userData = values[1]; //Timeline.pug
       //Values[1] = following
       userData["userScreenName"] = values[0]; //head.pug
       userData["messageData"] = values[2]; //dm.pug
       userData["follows"] = values[3]; //following.pug
-      userData['imgArr']=values[4];
-      //===============================================  
+      userData["imgArr"] = values[4];
+      //===============================================
       //========================================
 
-      response.render("layout", userData);//Render data onto the page
+      response.render("layout", userData); //Render data onto the page
       //=========================================
       //If the user tries to enter any route a 404 error will occur.
       app.use((req, res, next) => {
@@ -208,16 +220,15 @@ app.post("/", (req, res) => {
   T.post(
     "statuses/update",
     { status: `${req.body.tweet}` },
-    function(err, data, response) {
+    () => {
       console.log("Tweet has been posted");
-      res.redirect('/');
+      res.redirect("/");
     },
     function() {
       console.log("Error in tweet");
     }
   );
 });
-
 //===============================================
 //Loads application on client server - localhost:3000
 

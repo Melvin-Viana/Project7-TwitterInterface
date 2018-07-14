@@ -5,13 +5,17 @@
           h3
             | Recent messages
           ul.app--message--conversation
+            if messageData.length>0
             each message,index in messageData    
               li.app--message
                 .app--avatar(style=`background-image: url(${imgArr[index]})`)
                   img(src='images/f-spore.png')
                 p.app--message--timestamp #{message.date} 
                 p.app--message--timestamp #{message.time} 
-
                 p.app--message--text #{message.text}
+            else
+              li 
+                h4 No messages displayed    
+              li The user has not had any message activity in the past 30 days.
                
               
