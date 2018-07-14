@@ -1,0 +1,17 @@
+doctype html
+include includes/head.pug
+.app--tweet
+  form(action="/", method='post')
+    .circle--fluid
+      .circle--fluid--cell.circle--fluid--primary.align-bottom.app--tweet--post
+        .app--avatar(style='background-image: url(static/images/m-spore.png)')
+          img(src='images/m-spore.png')
+        textarea#tweet-textarea.circle--textarea--input(type='text', name='tweet')
+        strong#tweet-char.app--tweet--char 140
+      .circle--fluid--cell.align-bottom
+        button.button-primary(type='submit') Tweet
+.bounds.app--body
+  include includes/headers.pug
+  include includes/timeline.pug
+  include includes/following.pug
+  include includes/dm.pug
