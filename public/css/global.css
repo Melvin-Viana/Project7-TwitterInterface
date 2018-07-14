@@ -1520,11 +1520,11 @@ li:only-child .circle--clone--remove {
 }
 /* line 35, ../sass/circle/components/_headers.sass */
 .circle--header a {
-  color: rgba(255, 255, 255, 0.5);
+  color: white;
 }
 /* line 37, ../sass/circle/components/_headers.sass */
 .circle--header a:hover {
-  color: white;
+  color: #1da1f2;
 }
 /* line 39, ../sass/circle/components/_headers.sass */
 .circle--header nav {
@@ -2127,7 +2127,7 @@ body {
 .logo h1 {
   font-size: 1.8rem;
   font-weight: normal;
-  color: rgba(255, 255, 255, 0.5);
+  color: white;
   -webkit-transition: color 0.2s;
   -moz-transition: color 0.2s;
   -ms-transition: color 0.2s;
@@ -2136,7 +2136,7 @@ body {
 }
 /* line 26, ../sass/global.sass */
 .logo:hover h1 {
-  color: #fff;
+  color: #1da1f2;
 }
 
 /* line 29, ../sass/global.sass */

@@ -1,17 +1,8 @@
-const timeAgo = require('timeago.js');
-var dateFormat = require('dateformat');
-var timeagoInstance = timeAgo();
+const timeAgo = require("timeago.js");
+var dateFormat = require("dateformat");
 
-function dateConversion(date){
-    var tweetLongDate =dateFormat(date,'mmm dS yyyy');
-    var nowLongDate = dateFormat(Date.now(),'mmm dS yyyy');
-    if(nowLongDate === tweetLongDate){
-         date = timeagoInstance.format(date, 'test_local');
-        return date;
-    }
-    else{
-        return dateFormat(date,'mmm dd');
-    }
+function dateConversion(date, format) {
+  return dateFormat(date, format);
 }
 
 module.exports = dateConversion;

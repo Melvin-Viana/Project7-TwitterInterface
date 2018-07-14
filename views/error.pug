@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel='stylesheet' href='static/css/error.css')
+    
+        title #{error.status} error
+    body
+        //404 page found @ https://codepen.io/chiaren/pen/ALwnI
+        section#not-found
+        #title Error!
+        .circles
+            p=error.status           
+                br
+                small= error.message 
+                 pre= error.stack             
+            
