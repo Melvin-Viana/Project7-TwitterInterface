@@ -95,11 +95,12 @@ app.get("/", (req, response) => {
 
   //==================================================
   //Gets the data of the authorized user.
-  const accountData = T.get("account/verify_credentials").then(value => {
+  const accountData = T.get("users/show",{screen_name:'Mviana23008541'}).then(value => {
     //Return screen name of the user and the profile banner image url
     return [
       value.data.screen_name,
-      value.data.profile_banner_url
+      value.data.profile_banner_url,
+      value.data.profile_image_url
     ];
   });
   //=====================================================================
