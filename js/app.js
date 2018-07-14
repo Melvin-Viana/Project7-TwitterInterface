@@ -4,20 +4,13 @@ const toDate = require("normalize-date");
 const tweetDate = require("./date");
 const bodyParser = require("body-parser");
 //This holds config object
-const config = require("./config");
+const config = require("./config"); //I placed config.js in js folder with app.js and date.js
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set("view engine", "pug");
 app.use("/static", express.static("public"));
-// app.use((req,res,next)=>{
-//   req.melvin='hello';
-//   app.get('/',(req,res)=>{
-//     res.render('layout');
-//   });
-//   next();
-// });
 const T = new Twit(config);
 
 app.get("/", (req, response) => {
@@ -35,14 +28,14 @@ app.get("/", (req, response) => {
       userNames = [],
       screenNames = [],
       imageArr = [],
-      retweetCounts = [],
-      likeArr = [],
-      timeArr = [];
+      retweetCounts = [], //# Of retweets
+      likeArr = [], //# Of Likes
+      timeArr = []; // #Date Tweeted
     function getRetweetData(dataObj, index) {
       const retweetObj = dataObj.retweeted_status;
       retweetCounts.push(retweetObj.retweet_count);
       likeArr.push(retweetObj.favorite_count);
-      timeArr.push(tweetDate(retweetObj.created_at, "mmm dd"));
+      timeArr.push(tweetDate(retweetObj.created_at, "mmm dd, yyyy"));
       textArr.push(retweetObj.text);
 
       const retweetUserObj = retweetObj.user;
@@ -65,7 +58,7 @@ app.get("/", (req, response) => {
       retweetCounts.push(userObj.retweet_count);
       likeArr.push(userObj.favorite_count);
       textArr.push(dataObj.text);
-      timeArr.push(tweetDate(dataObj.created_at, "mmm yy"));
+      timeArr.push(tweetDate(dataObj.created_at, "mmm dd, yyyy"));
 
       if (retweetCounts[index] === 0) {
         retweetCounts[index] = "";
@@ -101,12 +94,12 @@ app.get("/", (req, response) => {
   });
 
   //==================================================
+  //Gets the data of the authorized user.
   const accountData = T.get("account/verify_credentials").then(value => {
     //Return screen name of the user and the profile banner image url
     return [
       value.data.screen_name,
-      value.data.profile_banner_url,
-      value.data.profile_sidebar_border_color
+      value.data.profile_banner_url
     ];
   });
   //=====================================================================
@@ -144,7 +137,7 @@ app.get("/", (req, response) => {
   //===========================================================
   //Get 5 Most recent friends
   /**
-*   profile image
+  profile image
   real name
   screen name
      */
@@ -184,12 +177,11 @@ app.get("/", (req, response) => {
       userData["messageData"] = values[2]; //dm.pug
       userData["follows"] = values[3]; //following.pug
       userData['imgArr']=values[4];
-      //===============================================
-      //After promises all run render data onto the page.
-      // userData['dmImages']= values[2]
+      //===============================================  
       //========================================
 
-      response.render("layout", userData);
+      response.render("layout", userData);//Render data onto the page
+      //=========================================
       //If the user tries to enter any route a 404 error will occur.
       app.use((req, res, next) => {
         const err = new Error("Not Found");
