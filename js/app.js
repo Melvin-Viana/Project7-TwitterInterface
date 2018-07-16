@@ -226,7 +226,7 @@ app.post("/", (req, res) => {
       res.redirect("/");
     },
     function() {
-      console.log("Error in tweet");
+      console.log("Error in tweet",err.stack);
     }
   );
 });
