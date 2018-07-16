@@ -194,7 +194,15 @@ app.get("/", (req, response) => {
       //========================================
 
       response.render("layout", userData); //Render data onto the page
-      //=========================================
+   
+    },
+    function() {
+      //Occurs when one of the T.get request fails.
+      console.log("Promise error occured");
+    }
+  );
+
+     //=========================================
       //If the user tries to enter any route a 404 error will occur.
       app.use((req, res, next) => {
         const err = new Error("Not Found");
@@ -208,12 +216,6 @@ app.get("/", (req, response) => {
         res.render("error");
       });
       //=================================
-    },
-    function() {
-      //Occurs when one of the T.get request fails.
-      console.log("Promise error occured");
-    }
-  );
 });
 //=============================================
 //When user posts a tweet it redirects the user to index page and updates the timeline
@@ -226,7 +228,7 @@ app.post("/", (req, res) => {
       res.redirect("/");
     },
     function() {
-      console.log("Error in tweet",err.stack);
+      console.log("Error in tweet");
     }
   );
 });
