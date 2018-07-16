@@ -85,12 +85,18 @@ app.get("/", (req, response) => {
       timeArr
     };
     return userData;
+  }).catch((err)=>{
+    console.error(err);
+    console.log("Timeline data extraction failed");
   }); // End of T.get timeline activity
 
   //==============================================
   //Displays how many users are followed.
   const following=
-  T.get("friends/ids").then((value)=>{return value.data.ids.length;});
+  T.get("friends/ids").then((value)=>{return value.data.ids.length;}).catch((err)=>{
+    console.error(err);
+    console.log("Following data extraction failed");
+  });
 
   //==================================================
   //Gets the data of the authorized user.
@@ -103,6 +109,9 @@ app.get("/", (req, response) => {
       value.data.profile_banner_url,
       value.data.profile_image_url
     ];
+  }).catch((err)=>{
+    console.error(err);
+    console.log("Account data extraction failed");
   });
   //=====================================================================
   //Get 5 Most recent DMs
@@ -141,7 +150,10 @@ app.get("/", (req, response) => {
       console.log("Direct Messages error;");
       return [];
     }
-  );
+  ).catch((err)=>{
+    console.error(err);
+    console.log("Direct Messages data extraction failed");
+  });;
 
   //===========================================================
   //Get 5 Most recent friends
@@ -195,12 +207,10 @@ app.get("/", (req, response) => {
 
       response.render("layout", userData); //Render data onto the page
    
-    },
-    function() {
-      //Occurs when one of the T.get request fails.
-      console.log("Promise error occured");
-    }
-  );
+    }).catch((err)=>{
+      console.error(err);
+      console.log("Promise array of all promises failed");
+    });
 
      //=========================================
       //If the user tries to enter any route a 404 error will occur.
