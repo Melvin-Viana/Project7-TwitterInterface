@@ -89,9 +89,8 @@ app.get("/", (req, response) => {
 
   //==============================================
   //Displays how many users are followed.
-  T.get("friends/ids", (err, data, res) => {
-    following = data.ids.length; //Head.pug
-  });
+  const following=
+  T.get("friends/ids").then((value)=>{return value.data.ids.length;});
 
   //==================================================
   //Gets the data of the authorized user.
@@ -182,7 +181,7 @@ app.get("/", (req, response) => {
   });
   //======================================================
 
-  Promise.all([accountData, statuses, directMessages, friends, imgArr]).then(
+  Promise.all([accountData, statuses, directMessages, friends, imgArr,following]).then(
     function(values) {
       const userData = values[1]; //Timeline.pug
       //Values[1] = following
@@ -190,6 +189,7 @@ app.get("/", (req, response) => {
       userData["messageData"] = values[2]; //dm.pug
       userData["follows"] = values[3]; //following.pug
       userData["imgArr"] = values[4];
+      userData['following'] = values[5];
       //===============================================
       //========================================
 
