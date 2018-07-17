@@ -11,8 +11,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set("view engine", "pug");
 app.use("/static", express.static("public"));
-const T = new Twit(config);
 
+const T = new Twit(config);
+try{
 app.get("/", (req, response) => {
   //========================================================================
   //Timeline Data
@@ -144,13 +145,7 @@ app.get("/", (req, response) => {
         });
       }
       return dmArr;
-    },
-    () => {
-      //If an error occurs with extracting messages the returned array will be empty.
-      console.log("Direct Messages error;");
-      return [];
-    }
-  ).catch((err)=>{
+    }).catch((err)=>{
     console.error(err);
     console.log("Direct Messages data extraction failed");
   });;
@@ -190,6 +185,9 @@ app.get("/", (req, response) => {
     }
     var promises = Promise.all(imgArr);
     return promises;
+  }).catch((err)=>{
+    console.error(err);
+    console.log("Following extraction failed");
   });
   //======================================================
 
@@ -243,6 +241,7 @@ app.post("/", (req, res) => {
   );
 });
 //===============================================
+}catch(error){console.error(error);}
 //Loads application on client server - localhost:3000
 
 app.listen(3000, () => {
