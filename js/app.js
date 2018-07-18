@@ -75,7 +75,6 @@ app.get("/", (req, response) => {
         ? getRetweetData(dataObj, i)
         : getTweetData(dataObj, i);
     }
-
     const userData = {
       textArr,
       userNames,
@@ -83,8 +82,9 @@ app.get("/", (req, response) => {
       imageArr,
       retweetCounts,
       likeArr,
-      timeArr
+      timeArr,userBanner:value.data[0].user.profile_banner_url
     };
+    
     return userData;
   }).catch((err)=>{
     console.error(err);
@@ -107,9 +107,9 @@ app.get("/", (req, response) => {
     //Return screen name of the user and the profile banner image url
     return [
       value.data.screen_name,
-      value.data.profile_banner_url,
       value.data.profile_image_url
     ];
+    
   }).catch((err)=>{
     console.error(err);
     console.log("Account data extraction failed");
@@ -196,8 +196,7 @@ app.get("/", (req, response) => {
       const userData = values[1]; //Timeline.pug
       //Values[1] = following
       userData["userScreenName"] = values[0][0]; //head.pug
-      userData['userBanner'] = values[0][1];//head.pug
-      userData['userPhoto']= values[0][2];//head.pug
+      userData['userPhoto']= values[0][1];//head.pug
       userData["messageData"] = values[2]; //dm.pug
       userData["follows"] = values[3]; //following.pug
       userData["imgArr"] = values[4];
@@ -238,6 +237,7 @@ app.post("/", (req, res) => {
     },
     function() {
       console.log("Error in tweet");
+      console.error(err.stack);
     }
   );
 });
