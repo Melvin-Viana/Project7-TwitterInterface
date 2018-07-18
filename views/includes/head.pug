@@ -18,13 +18,13 @@ head
     CSS
     ––––––––––––––––––––––––––––––––––––––––––––––––––
   link(rel='stylesheet' href='static/css/global.css')
-header.circle--header(style=`background-image: url(${userScreenName[1]})`)
+header.circle--header(style=`background-image: url(${userBanner})`)
   .bounds
     .circle--fluid
       .circle--fluid--cell
         a.logo(href='/')
-          img(src=`${userScreenName[2]}`)
-          h1 @#{userScreenName[0]} 
+          img(src=`${userPhoto}`)
+          h1 @#{userScreenName} 
       .circle--fluid--cell.align-right
         nav
           ul.circle--inline

@@ -195,11 +195,12 @@ app.get("/", (req, response) => {
     function(values) {
       const userData = values[1]; //Timeline.pug
       //Values[1] = following
-      userData["userScreenName"] = values[0]; //head.pug
+      userData["userScreenName"] = values[0][0]; //head.pug
+      userData['userBanner'] = values[0][1];//head.pug
+      userData['userPhoto']= values[0][2];//head.pug
       userData["messageData"] = values[2]; //dm.pug
       userData["follows"] = values[3]; //following.pug
       userData["imgArr"] = values[4];
-      userData['following'] = values[5];
       //===============================================
       //========================================
 
